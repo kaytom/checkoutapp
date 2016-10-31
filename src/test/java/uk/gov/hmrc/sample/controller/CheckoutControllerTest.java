@@ -71,7 +71,6 @@ public class CheckoutControllerTest {
         ).andExpect(status().isOk());
     }
 
-    @Ignore
     @Test
     public void testCalculateTotalCost_WithOffers() throws Exception {
         mockMvc.perform(post("/products/cost")

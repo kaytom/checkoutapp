@@ -23,6 +23,7 @@ import static org.junit.Assert.assertEquals;
 @RunWith(MockitoJUnitRunner.class)
 public class CheckoutServiceTest {
 
+    private static final BigDecimal PRICE_FOR_3_APPLES_1_ORANGE_WITHOFFER=new BigDecimal(1.45);
     @InjectMocks
     private static CheckoutService checkoutService = new CheckoutServiceImpl();
 
@@ -30,6 +31,12 @@ public class CheckoutServiceTest {
     public void testTotalShoppingCost_WithoutOffers() throws EmptyShoppingCartException {
         BigDecimal calculatedtotalCost = checkoutService.calculateTotalCost(shoppingCart(), false);
         assertEquals(calculatedtotalCost, shoppingCartCost());
+    }
+
+    @Test
+    public void testTotalShoppingCost_WithOffers() throws EmptyShoppingCartException {
+        BigDecimal calculatedtotalCost = checkoutService.calculateTotalCost(shoppingCart(), true);
+        assertEquals(calculatedtotalCost, CurrencyFormatter.rounded(PRICE_FOR_3_APPLES_1_ORANGE_WITHOFFER));
     }
 
     @Test(expected = EmptyShoppingCartException.class)

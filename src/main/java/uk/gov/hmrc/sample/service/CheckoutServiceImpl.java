@@ -44,7 +44,9 @@ public class CheckoutServiceImpl implements CheckoutService {
             totalCost = totalCostOfApples.add(totalCostOfOranges);
         }else{
             LOGGER.info("calculating total cost of products in the shopping cart WITH Special Offers ...");
-            //TODO: Apply simple offers
+            //Apply simple offers
+            SimpleOffersService simpleOffersService=new SimpleOffersServiceImpl();
+            totalCost = simpleOffersService.applyOffer(appleQuantity,orangeQuantity);
         }
 
         totalCost= CurrencyFormatter.rounded(totalCost);
